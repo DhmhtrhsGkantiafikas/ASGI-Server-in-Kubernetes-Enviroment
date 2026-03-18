@@ -1,33 +1,23 @@
-# ============================================
-# 1️⃣ GatewayClass για τον Kong
-# ============================================
+# gatewayclass.yaml
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: GatewayClass
 metadata:
   name: kong
 spec:
   controllerName: konghq.com/gateway-controller
-
 ---
-# ============================================
-# 2️⃣ Gateway (που χρησιμοποιεί την GatewayClass)
-# ============================================
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: fastapi-gateway
   namespace: default
 spec:
-  gatewayClassName: kong        # Ταιριάζει με το GatewayClass name
+  gatewayClassName: kong
   listeners:
     - name: http
       protocol: HTTP
       port: 80
-
 ---
-# ============================================
-# 3️⃣ HTTPRoute που δρομολογεί στο FastAPI service
-# ============================================
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 metadata:
@@ -35,14 +25,13 @@ metadata:
   namespace: default
 spec:
   parentRefs:
-    - name: fastapi-gateway   # Ο Gateway που χρησιμοποιεί
+    - name: fastapi-gateway
   rules:
     - matches:
         - path:
-            type: Prefix
-            value: /           # Όλες οι διαδρομές προς το FastAPI
-      forwardTo:
-        - targetRef:
-            kind: Service
-            name: fastapi-service
-            port: 8000
+            type: PathPrefix  # <-- εδώ το αλλάξαμε από "Prefix"
+            value: /
+      backendRefs:
+        - name: fastapi-service
+          port: 8000
+          weight: 1
