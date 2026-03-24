@@ -16,4 +16,4 @@ spec:
       - name: fastapi
         image: ghcr.io/DhmhtrhsGkantiafikas/fastapi-webapp:1.0
         ports:
-        - containerPort: 8000
+        - containerPort: 5000
