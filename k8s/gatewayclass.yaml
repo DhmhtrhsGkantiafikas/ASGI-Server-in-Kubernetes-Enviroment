@@ -33,5 +33,5 @@ spec:
             value: /
       backendRefs:
         - name: fastapi-service
-          port: 8000
+          port: 5000
           weight: 1
