@@ -7,7 +7,7 @@ spec:
     app: fastapi-webapp   
   ports:
     - protocol: TCP
-      port: 8000
-      targetPort: 8000
+      port: 5000
+      targetPort: 5000
       nodePort: 30080     #lan port
   type: NodePort          #outside access
