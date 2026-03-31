@@ -1,8 +1,9 @@
-# gatewayclass.yaml
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: GatewayClass
 metadata:
   name: kong
+  annotations:
+    konghq.com/gatewayclass-unmanaged: "true"   # <-- for non cloud enviroments! 
 spec:
   controllerName: konghq.com/gateway-controller
 ---
@@ -29,9 +30,8 @@ spec:
   rules:
     - matches:
         - path:
-            type: PathPrefix  # <-- εδώ το αλλάξαμε από "Prefix"
+            type: PathPrefix
             value: /
       backendRefs:
         - name: fastapi-service
           port: 5000
-          weight: 1
