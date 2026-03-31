@@ -10,10 +10,10 @@ spec:
   template:
     metadata:
       labels:
-        app: fastapi
+        app: fastapi-webapp
     spec:
       containers:
-      - name: fastapi
+      - name: fastapi-webapp
         image: ghcr.io/dhmhtrhsgkantiafikas/fastapi-webapp:1.0
         ports:
         - containerPort: 5000
