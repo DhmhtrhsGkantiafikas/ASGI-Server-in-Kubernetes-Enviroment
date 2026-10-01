@@ -28,10 +28,19 @@ spec:
   parentRefs:
     - name: fastapi-gateway
   rules:
+    # 1ο Route: Μόνο το αρχικό URL (η HTML σελίδα)
+    - matches:
+        - path:
+            type: Exact
+            value: /
+      backendRefs:
+        - name: fastapi-service
+          port: 5000
+    # 2ο Route: Ό,τι ξεκινάει από /api (το JSON API)
     - matches:
         - path:
             type: PathPrefix
-            value: /
+            value: /api
       backendRefs:
         - name: fastapi-service
           port: 5000
