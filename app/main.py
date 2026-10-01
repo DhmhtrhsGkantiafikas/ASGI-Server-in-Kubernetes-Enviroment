@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-app= FastAPI()
 
+app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
 def home():
-    """
+    html_kwdikas = """
     <!DOCTYPE html>
     <html>
     <head>
@@ -31,5 +31,14 @@ def home():
     </body>
     </html>
     """
-    return (html_kwdikas)
+    return html_kwdikas
 
+@app.get("/api/status")
+def system_status():
+    return {
+        "status": "Healthy",
+        "cluster_engine": "k0s",
+        "cni": "Cilium",
+        "gateway": "Kong Gateway API",
+        "developer": "theiosGad"
+    }
