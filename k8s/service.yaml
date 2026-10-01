@@ -4,7 +4,7 @@ metadata:
   name: fastapi-service
 spec:
   selector:
-    app: fastapi-webapp   
+    app: fastapi
   ports:
     - protocol: TCP
       port: 5000
