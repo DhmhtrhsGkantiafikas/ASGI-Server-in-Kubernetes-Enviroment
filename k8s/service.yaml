@@ -9,5 +9,4 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
-      nodePort: 30080     #lan port
-  type: NodePort          #outside access
+  type: ClusterIP       #internal comms to fastapi
