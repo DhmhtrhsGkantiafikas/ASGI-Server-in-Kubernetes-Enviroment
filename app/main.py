@@ -31,7 +31,9 @@ def home():
     </body>
     </html>
     """
-    return html_kwdikas
+   
+
+    return (html_kwdikas)
 
 @app.get("/api/status")
 def system_status():
