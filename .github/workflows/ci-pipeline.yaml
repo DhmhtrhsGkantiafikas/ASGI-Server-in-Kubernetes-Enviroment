@@ -17,7 +17,7 @@ jobs:
       packages: write
 
     steps:
-      - name: 1. checout of code 
+      - name: 1. checkout of code 
         uses: actions/checkout@v4
 
       - name: 2. GitHub Container Registry
@@ -25,7 +25,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.MY_PAT_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}  # <-- ΑΛΛΑΓΗ ΕΔΩ
 
       - name: 3. image built
         uses: docker/build-push-action@v5
@@ -33,5 +33,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/dhmhtrhsgkantiafikas/fastapi-webapp:${{ github.sha }}
-            ghcr.io/dhmhtrhsgkantiafikas/fastapi-webapp:latest
+            ghcr.io/dhmhtrhsgkantiafikas/asgi-server-in-kubernetes-enviroment:${{ github.sha }}
+            ghcr.io/dhmhtrhsgkantiafikas/asgi-server-in-kubernetes-enviroment:latest
