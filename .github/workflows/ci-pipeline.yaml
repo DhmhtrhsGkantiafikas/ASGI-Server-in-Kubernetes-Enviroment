@@ -4,34 +4,27 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'app/**'
-      - 'Dockerfile'
 
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-      packages: write
 
     steps:
-      - name: 1. checkout of code 
+      - name: 1. Checkout code 
         uses: actions/checkout@v4
 
-      - name: 2. GitHub Container Registry
+      - name: 2. GitHub Container Registry Login
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}  # <-- ΑΛΛΑΓΗ ΕΔΩ
+          password: ${{ secrets.MY_PAT_TOKEN }}
 
-      - name: 3. image built
+      - name: 3. Build and push image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ghcr.io/dhmhtrhsgkantiafikas/asgi-server-in-kubernetes-enviroment:${{ github.sha }}
             ghcr.io/dhmhtrhsgkantiafikas/asgi-server-in-kubernetes-enviroment:latest
+            ghcr.io/dhmhtrhsgkantiafikas/asgi-server-in-kubernetes-enviroment:${{ github.sha }}
